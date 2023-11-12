@@ -10,7 +10,7 @@ format:
         code-copy: true
 ---
 
-(include a brief description of what is in this document)
+This document represents a company-wide resume, showing what this rag-tag team of developers (poor college students) can do!
 
 GITHUB URL:  https://github.com/cmsc-vcu/cmsc508-fa2023-hw7-shonbennett
 
@@ -138,7 +138,7 @@ For the people, skills, and roles tables, provide a description of each table an
 
 ### People table
 
-The *people* table contains elements that describe ... 
+The *people* table represents employees' skills, roles, basic portfolio information, and contact.  
 
 Below is a list of data in the *people* table.
 
@@ -161,9 +161,9 @@ df
 
 ### Skills table
 
-The *skills* table contains elements that describe ... 
+The *skills* table contains all skills, a description for the skill and the amount of years committed to obtain this skill.  
 
-Below is a list of data in the *skills* table.
+Here is the data below!
 
 ```{python}
 #| echo: false
@@ -184,7 +184,7 @@ df
 
 ### Roles table
 
-The *roles* table contains elements that describe ... 
+The *roles* table has a role's id, aswell as the name of the role.
 
 Below is a list of data in the *roles* table.
 
@@ -212,7 +212,7 @@ Let's explore the database!
 
 # List skill names, tags, and descriptions ordered by name
 
-(here a sample query)
+This is a sample query that selects all information from the people table!
 
 ```{python}
 sql = f"""
@@ -244,7 +244,9 @@ df
 #| echo: false
 #| eval: true
 sql = f"""
-SELECT people_first_name, people_last_name, people_email FROM people ORDER BY people_last_name;
+SELECT first_name, last_name, email 
+FROM people 
+ORDER BY last_name;
 """
 
 try:
@@ -262,10 +264,10 @@ df
 #| echo: false
 #| eval: true
 sql = f"""
-SELECT skills.skills_name 
-FROM skills
-INNER JOIN peopleskills ON peopleskills.peopleskills_skills_id = skills.skills_id
-WHERE peopleskills.peopleskills_people_id = 1
+SELECT a.name 
+FROM skills a
+INNER JOIN peopleskills b ON (b.skills_id = a.id)
+WHERE b.people_id = 1
 """
 
 try:
@@ -283,10 +285,10 @@ df
 #| echo: false
 #| eval: true
 sql = f"""
-SELECT people.people_first_name 
-FROM people
-INNER JOIN peopleskills ON peopleskills.peopleskills_people_id = people.people_id
-WHERE peopleskills.peopleskills_skills_id = 6
+SELECT a.first_name 
+FROM people a
+INNER JOIN peopleskills b ON b.people_id = a.id
+WHERE b.skills_id = 6
 """
 
 try:
@@ -305,11 +307,11 @@ df
 #| echo: false
 #| eval: true
 sql = f"""
-SELECT people.people_first_name 
-FROM people
-INNER JOIN peopleroles ON people.people_id = peopleroles.peopleroles_people_id
-INNER JOIN roles ON peopleroles.peopleroles_role_id = roles.roles_id 
-WHERE roles.roles_name = "Developer"
+SELECT a.first_name 
+FROM people a
+INNER JOIN peopleroles b ON a.id = b.people_id
+INNER JOIN roles c ON b.role_id = c.id 
+WHERE c.name = "Developer"
 """
 
 try:
@@ -327,10 +329,10 @@ df
 #| echo: false
 #| eval: true
 sql = f"""
-SELECT people.people_first_name, people.people_email 
-FROM people
-LEFT JOIN peopleskills ON people.people_id = peopleskills.peopleskills_people_id
-WHERE peopleskills_skills_id IS NULL
+SELECT a.first_name, a.email 
+FROM people a
+LEFT JOIN peopleskills b ON a.id = b.people_id
+WHERE b.skills_id IS NULL
 """
 
 try:
@@ -345,12 +347,71 @@ df
 
 ### List names and tags of unused skills
 
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT a.name
+FROM skills a 
+LEFT JOIN peopleskills b on (a.id=b.skills_id)
+WHERE b.people_id IS NULL
+"""
+
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List people names and skill names with the BOSS role
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT c.first_name, e.name
+FROM peopleroles a 
+INNER JOIN roles b ON (a.role_id=b.id)
+INNER JOIN people c ON (c.id = a.people_id) 
+INNER JOIN peopleskills d ON (d.people_id = c.id)
+INNER JOIN skills e ON (e.id = d.skills_id)
+WHERE b.name = "BOSS"
+"""
 
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List ids and names of unused roles
 
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT a.id, a.name
+FROM roles a
+LEFT JOIN peopleroles b ON (a.id=b.role_id)
+WHERE b.people_id IS NULL
+"""
+
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ## Reflection
 
