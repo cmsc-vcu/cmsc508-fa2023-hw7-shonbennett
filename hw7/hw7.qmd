@@ -10,7 +10,7 @@ format:
         code-copy: true
 ---
 
-This document represents a company-wide resume, showing what this rag-tag team of developers (poor college students) can do!
+This document represents a database that represents a company-wide resume, showcasing the skills of each employee. The database also tells of each employee's role, and helps identify gaps between employee skill sets. If more information is wanted about an employee (linkedin, headshot, email etc.), it can be accessed in the people table.
 
 GITHUB URL:  https://github.com/cmsc-vcu/cmsc508-fa2023-hw7-shonbennett
 
