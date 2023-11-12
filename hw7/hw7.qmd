@@ -210,22 +210,19 @@ df
 
 Let's explore the database!
 
-# List skill names, tags, and descriptions ordered by name
+# Reports 
 
-This is a sample query that selects all information from the people table!
-
-```{python}
-sql = f"""
-select * from people
-"""
-```
-
-
-(and here is a sample result from the query)
+### List skill names, tags, and descriptions ordered by name
 
 ```{python}
 #| echo: false
 #| eval: true
+sql = f"""
+select name, tag, description
+from skills
+order by name;
+"""
+## Add code to list roles table here
 try:
     df = pd.read_sql(sql,cnx)
     df

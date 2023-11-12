@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-}
-pre.numberSource { margin-left: 3em; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -3327,8 +3293,9 @@ z-index: 1000;
   <li><a href="#roles-table" id="toc-roles-table" class="nav-link" data-scroll-target="#roles-table">Roles table</a></li>
   </ul></li>
   <li><a href="#sample-queries" id="toc-sample-queries" class="nav-link" data-scroll-target="#sample-queries">Sample queries</a></li>
-  <li><a href="#list-skill-names-tags-and-descriptions-ordered-by-name" id="toc-list-skill-names-tags-and-descriptions-ordered-by-name" class="nav-link" data-scroll-target="#list-skill-names-tags-and-descriptions-ordered-by-name">List skill names, tags, and descriptions ordered by name</a>
+  <li><a href="#reports" id="toc-reports" class="nav-link" data-scroll-target="#reports">Reports</a>
   <ul class="collapse">
+  <li><a href="#list-skill-names-tags-and-descriptions-ordered-by-name" id="toc-list-skill-names-tags-and-descriptions-ordered-by-name" class="nav-link" data-scroll-target="#list-skill-names-tags-and-descriptions-ordered-by-name">List skill names, tags, and descriptions ordered by name</a></li>
   <li><a href="#list-people-names-and-email-addresses-ordered-by-last_name" id="toc-list-people-names-and-email-addresses-ordered-by-last_name" class="nav-link" data-scroll-target="#list-people-names-and-email-addresses-ordered-by-last_name">List people names and email addresses ordered by last_name</a></li>
   <li><a href="#list-skill-names-of-person-1" id="toc-list-skill-names-of-person-1" class="nav-link" data-scroll-target="#list-skill-names-of-person-1">List skill names of Person 1</a></li>
   <li><a href="#list-people-names-with-skill-6" id="toc-list-people-names-with-skill-6" class="nav-link" data-scroll-target="#list-people-names-with-skill-6">List people names with Skill 6</a></li>
@@ -3431,7 +3398,7 @@ z-index: 1000;
 <p>The <em>people</em> table represents employees’ skills, roles, basic portfolio information, and contact.</p>
 <p>Below is a list of data in the <em>people</em> table.</p>
 <div class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -3583,7 +3550,7 @@ z-index: 1000;
 <p>The <em>skills</em> table contains all skills, a description for the skill and the amount of years committed to obtain this skill.</p>
 <p>Here is the data below!</p>
 <div class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="38">
 <div>
 
 
@@ -3684,7 +3651,7 @@ z-index: 1000;
 <p>The <em>roles</em> table has a role’s id, aswell as the name of the role.</p>
 <p>Below is a list of data in the <em>roles</em> table.</p>
 <div class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <div>
 
 
@@ -3746,17 +3713,12 @@ z-index: 1000;
 <h2 class="anchored" data-anchor-id="sample-queries">Sample queries</h2>
 <p>Let’s explore the database!</p>
 </section>
-<section id="list-skill-names-tags-and-descriptions-ordered-by-name" class="level1">
-<h1>List skill names, tags, and descriptions ordered by name</h1>
-<p>This is a sample query that selects all information from the people table!</p>
+<section id="reports" class="level1">
+<h1>Reports</h1>
+<section id="list-skill-names-tags-and-descriptions-ordered-by-name" class="level3">
+<h3 class="anchored" data-anchor-id="list-skill-names-tags-and-descriptions-ordered-by-name">List skill names, tags, and descriptions ordered by name</h3>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sql <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ss">select * from people</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>(and here is a sample result from the query)</p>
-<div class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <div>
 
 
@@ -3764,137 +3726,59 @@ z-index: 1000;
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">id</th>
-<th data-quarto-table-cell-role="th">last_name</th>
-<th data-quarto-table-cell-role="th">date_joined</th>
-<th data-quarto-table-cell-role="th">first_name</th>
-<th data-quarto-table-cell-role="th">email</th>
-<th data-quarto-table-cell-role="th">linkedin_url</th>
-<th data-quarto-table-cell-role="th">headshot_url</th>
-<th data-quarto-table-cell-role="th">discord_handle</th>
-<th data-quarto-table-cell-role="th">brief_bio</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">tag</th>
+<th data-quarto-table-cell-role="th">description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>Person 1</td>
-<td>2022-05-16</td>
-<td>Shon</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
+<td>animation</td>
+<td>Skill 4</td>
+<td>has skills in animation industry</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>Person 2</td>
-<td>2004-09-26</td>
-<td>Beth</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
+<td>design</td>
+<td>Skill 3</td>
+<td>able to design user interfaces</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>Person 3</td>
-<td>2007-07-02</td>
-<td>Naomi</td>
-<td>naomiraine@gmail.com</td>
-<td>None</td>
-<td>None</td>
-<td>itsnaomiraine</td>
-<td>None</td>
+<td>interpersonal skills</td>
+<td>Skill 1</td>
+<td>able to work well with the team</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>Person 4</td>
-<td>1995-11-13</td>
-<td>Johnny</td>
-<td>johnnycash@gmail.com</td>
-<td>None</td>
-<td>None</td>
-<td>johnnyrules</td>
-<td>None</td>
+<td>Java</td>
+<td>Skill 6</td>
+<td>is able to write efficient code in Java</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>Person 5</td>
-<td>2013-04-18</td>
-<td>Victor</td>
-<td>None</td>
-<td>None</td>
-<td>www.headshot.com/vics-photo</td>
-<td>None</td>
-<td>I was born and raised in VA, and now live in F...</td>
+<td>professional gamer</td>
+<td>Skill 8</td>
+<td>won eSports championship</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>6</td>
-<td>Person 6</td>
-<td>1989-06-23</td>
-<td>Jack</td>
-<td>None</td>
-<td>None</td>
-<td>www.headshot.com/jack-nicholson</td>
-<td>None</td>
-<td>I am Jack, better known as the Joker. I went f...</td>
+<td>Python</td>
+<td>Skill 5</td>
+<td>can build web applications in python using Flask</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>7</td>
-<td>Person 7</td>
-<td>2022-01-01</td>
-<td>Bruce</td>
-<td>brucewayne@gothamemail.com</td>
-<td>www.linkedin.com/wayne-enterprises</td>
-<td>headshot.com/cannot-get-bruce</td>
-<td>imnotbatman</td>
-<td>I&#39;m a billionaire, not Batman!</td>
+<td>Swift</td>
+<td>Skill 2</td>
+<td>building iOS applications</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
-<td>8</td>
-<td>Person 8</td>
-<td>2013-10-12</td>
-<td>Natalya</td>
-<td>natthegreat@gmail.com</td>
-<td>www.linkedin.com/natalya-neidhart</td>
-<td>headshot.com/natalya</td>
-<td>imnattyhart</td>
-<td>I come from the greatest wrestling family in h...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>9</td>
-<td>Person 9</td>
-<td>2006-03-09</td>
-<td>Blanca</td>
-<td>blancasings@outreach.com</td>
-<td>www.linkedin.com/blanca</td>
-<td>headshot.com/blanca</td>
-<td>blancareaches</td>
-<td>My name is Blanca! I was born in El Salvador!</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>10</td>
-<td>Person 10</td>
-<td>2015-08-23</td>
-<td>David</td>
-<td>davidpsalmo@gmail.com</td>
-<td>www.linkedin.com/king-david</td>
-<td>headshot.com/davids-photo</td>
-<td>davidtheking</td>
-<td>I used to tend to sheep, and now I write code!</td>
+<td>wrestling</td>
+<td>Skill 7</td>
+<td>able to pin an opponent within 20 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -3902,10 +3786,11 @@ z-index: 1000;
 </div>
 </div>
 </div>
+</section>
 <section id="list-people-names-and-email-addresses-ordered-by-last_name" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-and-email-addresses-ordered-by-last_name">List people names and email addresses ordered by last_name</h3>
-<div class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 
 
@@ -3988,8 +3873,8 @@ z-index: 1000;
 </section>
 <section id="list-skill-names-of-person-1" class="level3">
 <h3 class="anchored" data-anchor-id="list-skill-names-of-person-1">List skill names of Person 1</h3>
-<div class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 
 
@@ -4022,8 +3907,8 @@ z-index: 1000;
 </section>
 <section id="list-people-names-with-skill-6" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-with-skill-6">List people names with Skill 6</h3>
-<div class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <div>
 
 
@@ -4064,8 +3949,8 @@ z-index: 1000;
 </section>
 <section id="list-people-with-a-developer-role" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-with-a-developer-role">List people with a DEVELOPER role</h3>
-<div class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <div>
 
 
@@ -4106,8 +3991,8 @@ z-index: 1000;
 </section>
 <section id="list-names-and-email-addresses-of-people-without-skills" class="level3">
 <h3 class="anchored" data-anchor-id="list-names-and-email-addresses-of-people-without-skills">List names and email addresses of people without skills</h3>
-<div class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <div>
 
 
@@ -4134,8 +4019,8 @@ z-index: 1000;
 </section>
 <section id="list-names-and-tags-of-unused-skills" class="level3">
 <h3 class="anchored" data-anchor-id="list-names-and-tags-of-unused-skills">List names and tags of unused skills</h3>
-<div class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="46">
 <div>
 
 
@@ -4164,8 +4049,8 @@ z-index: 1000;
 </section>
 <section id="list-people-names-and-skill-names-with-the-boss-role" class="level3">
 <h3 class="anchored" data-anchor-id="list-people-names-and-skill-names-with-the-boss-role">List people names and skill names with the BOSS role</h3>
-<div class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="47">
 <div>
 
 
@@ -4202,8 +4087,8 @@ z-index: 1000;
 </section>
 <section id="list-ids-and-names-of-unused-roles" class="level3">
 <h3 class="anchored" data-anchor-id="list-ids-and-names-of-unused-roles">List ids and names of unused roles</h3>
-<div class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="48">
 <div>
 
 
