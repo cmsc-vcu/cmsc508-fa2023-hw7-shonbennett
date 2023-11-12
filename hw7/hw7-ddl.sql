@@ -172,10 +172,10 @@ INSERT INTO peopleskills(id, skills_id, people_id, date_acquired) values
 # sort_priority is an integer and is used to provide an order for sorting roles
 
 CREATE TABLE roles (
-    roles_id int, 
-    roles_name varchar(255),
-    roles_sort_priority int,
-    PRIMARY KEY (roles_id)
+    id int, 
+    name varchar(255),
+    sort_priority int,
+    PRIMARY KEY (id)
 );
 
 
@@ -184,7 +184,7 @@ CREATE TABLE roles (
 # Designer, Developer, Recruit, Team Lead, Boss, Mentor
 # Sort priority is assigned numerically in the order listed above (Designer=10, Developer=20, Recruit=30, etc.)
 
-INSERT INTO roles(roles_id, roles_name, roles_sort_priority) values
+INSERT INTO roles(id, name, sort_priority) values
   (1, "Designer", 10),
   (2, "Developer", 20),
   (3, "Recruit", 30),
@@ -197,11 +197,13 @@ INSERT INTO roles(roles_id, roles_name, roles_sort_priority) values
 # None of the fields can be null.  ID can be auto_increment
 
 CREATE TABLE peopleroles(
-    peopleroles_id int not null,
-    peopleroles_people_id int not null, 
-    peopleroles_role_id int not null, 
-    peopleroles_date_assigned date not null,
-    PRIMARY KEY (peopleroles_id)
+    id int not null,
+    people_id int not null, 
+    role_id int not null, 
+    date_assigned date not null,
+    PRIMARY KEY (id),
+    foreign key (people_id) references people(id),
+    foreign key (role_id) references roles(id)
 );
 
 # Section 11
@@ -217,28 +219,28 @@ CREATE TABLE peopleroles(
 # Person 9 is Developer
 # Person 10 is Developer and Designer
 
-INSERT INTO peopleroles(peopleroles_id, peopleroles_people_id, peopleroles_role_id, peopleroles_date_assigned) values
-  (1, 1, (SELECT roles_id FROM roles WHERE roles_name = "Developer"), '2014-05-03'),
+INSERT INTO peopleroles(id, people_id, role_id, date_assigned) values
+  (1, 1, (SELECT id FROM roles WHERE name = "Developer"), '2014-05-03'),
   
-  (2, 2, (SELECT roles_id FROM roles WHERE roles_name = 'Boss'), '2014-02-03'),
-  (3, 2, (SELECT roles_id FROM roles WHERE roles_name = 'Mentor'), '2014-02-03'),
+  (2, 2, (SELECT id FROM roles WHERE name = 'Boss'), '2014-02-03'),
+  (3, 2, (SELECT id FROM roles WHERE name = 'Mentor'), '2014-02-03'),
   
-  (4, 3, (SELECT roles_id FROM roles WHERE roles_name = 'Developer'), '2011-01-11'),
-  (5, 3, (SELECT roles_id FROM roles WHERE roles_name = 'Team Lead'), '2012-02-02'),
+  (4, 3, (SELECT id FROM roles WHERE name = 'Developer'), '2011-01-11'),
+  (5, 3, (SELECT id FROM roles WHERE name = 'Team Lead'), '2012-02-02'),
   
-  (6, 4, (SELECT roles_id FROM roles WHERE roles_name = 'Recruit'), '2014-09-13'),
+  (6, 4, (SELECT id FROM roles WHERE name = 'Recruit'), '2014-09-13'),
   
-  (7, 5, (SELECT roles_id FROM roles WHERE roles_name = 'Recruit'), '2023-12-03'),
+  (7, 5, (SELECT id FROM roles WHERE name = 'Recruit'), '2023-12-03'),
   
-  (8, 6, (SELECT roles_id FROM roles WHERE roles_name = 'Developer'), '2009-12-23'),
-  (9, 6, (SELECT roles_id FROM roles WHERE roles_name = 'Designer'), '2011-12-03'),
+  (8, 6, (SELECT id FROM roles WHERE name = 'Developer'), '2009-12-23'),
+  (9, 6, (SELECT id FROM roles WHERE name = 'Designer'), '2011-12-03'),
 
-  (10, 7, (SELECT roles_id FROM roles WHERE roles_name = 'Designer'), '2013-11-09'),
+  (10, 7, (SELECT id FROM roles WHERE name = 'Designer'), '2013-11-09'),
 
-  (11, 8, (SELECT roles_id FROM roles WHERE roles_name = 'Designer'), '2015-06-23'),
-  (12, 8, (SELECT roles_id FROM roles WHERE roles_name = 'Team Lead'), '2022-04-09'),
+  (11, 8, (SELECT id FROM roles WHERE name = 'Designer'), '2015-06-23'),
+  (12, 8, (SELECT id FROM roles WHERE name = 'Team Lead'), '2022-04-09'),
 
-  (13, 9, (SELECT roles_id FROM roles WHERE roles_name = 'Developer'), '2021-07-13'),
+  (13, 9, (SELECT id FROM roles WHERE name = 'Developer'), '2021-07-13'),
 
-  (14, 10, (SELECT roles_id FROM roles WHERE roles_name = 'Developer'), '2002-02-11'),
-  (15, 10, (SELECT roles_id FROM roles WHERE roles_name = 'Designer'), '2003-10-18');
+  (14, 10, (SELECT id FROM roles WHERE name = 'Developer'), '2002-02-11'),
+  (15, 10, (SELECT id FROM roles WHERE name = 'Designer'), '2003-10-18');
