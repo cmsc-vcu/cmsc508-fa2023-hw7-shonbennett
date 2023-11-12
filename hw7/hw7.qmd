@@ -1,6 +1,6 @@
 ---
 title: Homework 7 - Creating a resume database
-author: (your name goes here!)
+author: Shon Bennett
 date: last-modified
 format:
     html:
@@ -12,9 +12,7 @@ format:
 
 (include a brief description of what is in this document)
 
-(Please clean up any comments that I included.  This is a scaffold document.)
-
-GITHUB URL:  <your URL goes here!>
+GITHUB URL:  https://github.com/cmsc-vcu/cmsc508-fa2023-hw7-shonbennett
 
 ```{python}
 #| eval: true
@@ -92,25 +90,46 @@ except Exception as e:
 
 ## Overview and description
 
-(briefly describe the project and the database)
+We have been given the task of promoting a company full of designers and developers taking on projects. This database functions as a company-wide resume used to display the skills, and roles of every employee.
 
 ## Crows-foot diagram
 
-(add a description of the diagram and what the reader is seeing.)
+This Crows-foot diagram gives a snapshot of the attributes each entity holds, as well as display the relationship participation requirements amongst entities. 
 
 ```{mermaid}
 %%| echo: false
+
 erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
-    CUSTOMER{
-        int id
-        string first_name
+    SKILLS }o--o{ PEOPLE : obtained
+    ROLES }|--|{ PEOPLE : obtained
+    
+    SKILLS{
+        int skills_id FK
+        string name
+        string description 
+        string tag 
+        string url 
+        int time_commitment
+    }
+
+    PEOPLE {
+        int people_id
+        string first_name 
         string last_name
+        string email
+        string linkedin_url
+        string headshot_url
+        string discord_handle 
+        string brief_bio 
+        date date_joined 
     }
-    DELIVERY-ADDRESS {
-        int id
+
+    ROLES {
+        int role_id 
+        string name 
+        int sort_priority 
     }
+
 ```
 
 ## Examples of data in the database
@@ -149,8 +168,18 @@ Below is a list of data in the *skills* table.
 ```{python}
 #| echo: false
 #| eval: true
-
+sql = f"""
+select * from skills;
+"""
 ## Add code to list roles table here
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in skills table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
 ```
 
 ### Roles table
@@ -162,8 +191,18 @@ Below is a list of data in the *roles* table.
 ```{python}
 #| echo: false
 #| eval: true
-
+sql = f"""
+select * from roles;
+"""
 ## Add code to list roles table here
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in roles table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
 ```
 
 
@@ -201,18 +240,108 @@ df
 
 ### List people names and email addresses ordered by last_name
 
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT people_first_name, people_last_name, people_email FROM people ORDER BY people_last_name;
+"""
+
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in people table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List skill names of Person 1
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT skills.skills_name 
+FROM skills
+INNER JOIN peopleskills ON peopleskills.peopleskills_skills_id = skills.skills_id
+WHERE peopleskills.peopleskills_people_id = 1
+"""
 
-
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 ### List people names with Skill 6
 
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT people.people_first_name 
+FROM people
+INNER JOIN peopleskills ON peopleskills.peopleskills_people_id = people.people_id
+WHERE peopleskills.peopleskills_skills_id = 6
+"""
+
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List people with a DEVELOPER role
 
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT people.people_first_name 
+FROM people
+INNER JOIN peopleroles ON people.people_id = peopleroles.peopleroles_people_id
+INNER JOIN roles ON peopleroles.peopleroles_role_id = roles.roles_id 
+WHERE roles.roles_name = "Developer"
+"""
+
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List names and email addresses of people without skills
+```{python}
+#| echo: false
+#| eval: true
+sql = f"""
+SELECT people.people_first_name, people.people_email 
+FROM people
+LEFT JOIN peopleskills ON people.people_id = peopleskills.peopleskills_people_id
+WHERE peopleskills_skills_id IS NULL
+"""
 
+try:
+    df = pd.read_sql(sql,cnx)
+    df
+except Exception as e:
+    message = str(e)
+    print(f"An error occurred in peopleskills/skills join table query:\n\n{message}\n\nIgnoring and moving on.")
+    df = pd.DataFrame()
+df
+```
 
 ### List names and tags of unused skills
 
