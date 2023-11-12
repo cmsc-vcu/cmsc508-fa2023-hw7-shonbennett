@@ -415,5 +415,5 @@ df
 
 ## Reflection
 
-(Write a paragraph expressing your thoughts, feelings, and insights about your experience with this assignment.  Pause and breath before writing - I'm trying to encourage critical thinking and self-awareness while allowing you to explore the connections between theory and practice. And yes, delete this paragraph.)
+This was a pretty good experience. I finally understand how the sql databases are created. We write a bunch of create statements to create the tables, inserts to add data, and create queries to access this data. This assignment has given me the skills I need to make some significant progress on the database project before break. It's sometimes painful to complete these assignments, because there are a lot of moving parts, but I am always grateful that I worked on them. I learn a lot while doing it. 
 
