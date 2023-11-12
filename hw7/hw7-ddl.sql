@@ -33,13 +33,13 @@ SET FOREIGN_KEY_CHECKS=1;
 # You can assign the skill descriptions.  Please be creative!
 
 CREATE TABLE skills (
-    skills_id int not null, 
-    skills_name varchar(255) not null,
-    skills_description varchar(255) not null,
-    skills_tag varchar(255) not null, 
-    skills_url varchar(255),
-    skills_time_commitment int,
-    PRIMARY KEY (skills_id)
+    id int not null, 
+    name varchar(255) not null,
+    description varchar(255) not null,
+    tag varchar(255) not null, 
+    url varchar(255),
+    time_commitment int,
+    PRIMARY KEY (id)
 );
 
 # Section 3
@@ -47,17 +47,17 @@ CREATE TABLE skills (
 # Populates the skills table with eight skills, their tag fields must exactly contain “Skill 1”, “Skill 2”, etc.
 # You can assign skill names.  Please be creative!
 
-INSERT INTO skills( skills_id, skills_name, skills_description, skills_tag ) values
+INSERT INTO skills( id, name, description, tag ) values
   (1,'interpersonal skills','able to work well with the team', 'Skill 1'),
   (2,'Swift','building iOS applications', 'Skill 2');
 
-INSERT INTO skills( skills_id, skills_name, skills_description, skills_tag, skills_time_commitment ) values
+INSERT INTO skills( id, name, description, tag, time_commitment ) values
   (3,'design','able to design user interfaces', 'Skill 3', 3),
   (4,'animation','has skills in animation industry', 'Skill 4', 5), 
   (5,'Python','can build web applications in python using Flask', 'Skill 5', 1), 
   (6,'Java','is able to write efficient code in Java', 'Skill 6', 3);
 
-INSERT INTO skills( skills_id, skills_name, skills_description, skills_tag, skills_url ) values
+INSERT INTO skills( id, name, description, tag, url ) values
   (7,'wrestling','able to pin an opponent within 20 minutes', 'Skill 7', "www.wwe.com/past-talent"),
   (8,'professional gamer','won eSports championship', 'Skill 8', "www.esports.com/list-of-champions"); 
 
@@ -68,16 +68,16 @@ INSERT INTO skills( skills_id, skills_name, skills_description, skills_tag, skil
 # All other fields can default to NULL.
 
 CREATE TABLE people (
-    people_id int not null, 
-    people_last_name varchar(255) not null,
-    people_date_joined date not null,
-    people_first_name varchar(255),  
-    people_email varchar(255), 
-    people_linkedin_url varchar(255),
-    people_headshot_url varchar(255), 
-    people_discord_handle varchar(255), 
-    people_brief_bio varchar(4096),
-    PRIMARY KEY (people_id)
+    id int not null, 
+    last_name varchar(255) not null,
+    date_joined date not null,
+    first_name varchar(255),  
+    email varchar(255), 
+    linkedin_url varchar(255),
+    headshot_url varchar(255), 
+    discord_handle varchar(255), 
+    brief_bio varchar(4096),
+    PRIMARY KEY (id)
 );
 
 # Section 5
@@ -85,20 +85,20 @@ CREATE TABLE people (
 # Their last names must exactly be “Person 1”, “Person 2”, etc.
 # Other fields are for you to assign.
 
-INSERT INTO people(people_id,people_last_name, people_date_joined, people_first_name) values 
+INSERT INTO people(id,last_name, date_joined, first_name) values 
   (1,'Person 1', '2022-05-16', 'Shon'),
   (2,'Person 2', '2004-09-26', 'Beth');
 
-INSERT INTO people(people_id,people_last_name, people_date_joined, people_first_name, people_discord_handle, people_email) values 
+INSERT INTO people(id,last_name, date_joined, first_name, discord_handle, email) values 
   (3,'Person 3', '2007-07-02', 'Naomi', 'itsnaomiraine', 'naomiraine@gmail.com'),
   (4,'Person 4', '1995-11-13', 'Johnny', 'johnnyrules', 'johnnycash@gmail.com');
 
-INSERT INTO people(people_id,people_last_name, people_date_joined, people_first_name, people_headshot_url, people_brief_bio) values 
+INSERT INTO people(id,last_name, date_joined, first_name, headshot_url, brief_bio) values 
   (5,'Person 5', '2013-04-18', 'Victor', 'www.headshot.com/vics-photo', 'I was born and raised in VA, and now live in FL as a web developer.'),
   (6,'Person 6', '1989-06-23', 'Jack', 'www.headshot.com/jack-nicholson', 'I am Jack, better known as the Joker. I went from a life of crime to a career as a developer!');
 
 
-INSERT INTO people(people_id,people_last_name, people_date_joined, people_first_name, people_email, people_linkedin_url, people_headshot_url, people_discord_handle, people_brief_bio) values
+INSERT INTO people(id,last_name, date_joined, first_name, email, linkedin_url, headshot_url, discord_handle, brief_bio) values
   (7, "Person 7", '2022-01-01', 'Bruce', "brucewayne@gothamemail.com", "www.linkedin.com/wayne-enterprises", "headshot.com/cannot-get-bruce", "imnotbatman", "I'm a billionaire, not Batman!"),
   (8, "Person 8", '2013-10-12', 'Natalya', "natthegreat@gmail.com", "www.linkedin.com/natalya-neidhart", "headshot.com/natalya", "imnattyhart", "I come from the greatest wrestling family in history, the Harts!"),
   (9, "Person 9", '2006-03-09', 'Blanca', "blancasings@outreach.com", "www.linkedin.com/blanca", "headshot.com/blanca", "blancareaches", "My name is Blanca! I was born in El Salvador!"),
@@ -109,13 +109,13 @@ select * from people;
 # None of the fields can ba NULL. ID can be auto_increment.
 
 CREATE TABLE peopleskills(
-    peopleskills_id int not null,
-    peopleskills_skills_id int not null, 
-    peopleskills_people_id int not null, 
-    peopleskills_date_acquired date default (current_date),
-    PRIMARY KEY (peopleskills_id),
-    foreign key (peopleskills_skills_id) references skills (skills_id),
-    foreign key (peopleskills_people_id) references people (people_id)
+    id int not null,
+    skills_id int not null, 
+    people_id int not null, 
+    date_acquired date default (current_date),
+    PRIMARY KEY (id),
+    foreign key (skills_id) references skills (id),
+    foreign key (people_id) references people (id)
 );
 
 # Section 7
@@ -132,41 +132,41 @@ CREATE TABLE peopleskills(
 # Person 10 has skills 1,4,5;
 # Note that no one has yet acquired skills 7 and 8.
  
-INSERT INTO peopleskills(peopleskills_id, peopleskills_skills_id, peopleskills_people_id, peopleskills_date_acquired) values 
-  (1, 1, (SELECT people_id FROM people WHERE people_id = 1), '2002-11-07'), 
-  (2, 3, (SELECT people_id FROM people WHERE people_id = 1), '2012-09-07'),
-  (3, 6, (SELECT people_id FROM people WHERE people_id = 1), '2023-12-17'),
+INSERT INTO peopleskills(id, skills_id, people_id, date_acquired) values 
+  (1, 1, (SELECT id FROM people WHERE id = 1), '2002-11-07'), 
+  (2, 3, (SELECT id FROM people WHERE id = 1), '2012-09-07'),
+  (3, 6, (SELECT id FROM people WHERE id = 1), '2023-12-17'),
   
-  (4, 3, (SELECT people_id FROM people WHERE people_id = 2), '2019-03-13'),
-  (5, 4, (SELECT people_id FROM people WHERE people_id = 2), '2011-02-15'),
-  (6, 5, (SELECT people_id FROM people WHERE people_id = 2), '2012-01-18'),
+  (4, 3, (SELECT id FROM people WHERE id = 2), '2019-03-13'),
+  (5, 4, (SELECT id FROM people WHERE id = 2), '2011-02-15'),
+  (6, 5, (SELECT id FROM people WHERE id = 2), '2012-01-18'),
 
-  (7, 1, (SELECT people_id FROM people WHERE people_id = 3), '2009-11-10'),
-  (8, 5, (SELECT people_id FROM people WHERE people_id = 3), '2003-08-15'),
+  (7, 1, (SELECT id FROM people WHERE id = 3), '2009-11-10'),
+  (8, 5, (SELECT id FROM people WHERE id = 3), '2003-08-15'),
 
-  (9, 3, (SELECT people_id FROM people WHERE people_id = 5), '2001-02-11'), 
-  (10, 6, (SELECT people_id FROM people WHERE people_id = 5), '2011-06-30'), 
+  (9, 3, (SELECT id FROM people WHERE id = 5), '2001-02-11'), 
+  (10, 6, (SELECT id FROM people WHERE id = 5), '2011-06-30'), 
 
-  (11, 2, (SELECT people_id FROM people WHERE people_id = 6), '2010-04-09'), 
-  (12, 3, (SELECT people_id FROM people WHERE people_id = 6), '2008-08-11'),
-  (13, 4, (SELECT people_id FROM people WHERE people_id = 6), '2000-01-25'),
+  (11, 2, (SELECT id FROM people WHERE id = 6), '2010-04-09'), 
+  (12, 3, (SELECT id FROM people WHERE id = 6), '2008-08-11'),
+  (13, 4, (SELECT id FROM people WHERE id = 6), '2000-01-25'),
 
-  (14, 3, (SELECT people_id FROM people WHERE people_id = 7), '2013-09-09'), 
-  (15, 5, (SELECT people_id FROM people WHERE people_id = 7), '2008-12-11'),
-  (16, 6, (SELECT people_id FROM people WHERE people_id = 7), '2000-03-25'),  
+  (14, 3, (SELECT id FROM people WHERE id = 7), '2013-09-09'), 
+  (15, 5, (SELECT id FROM people WHERE id = 7), '2008-12-11'),
+  (16, 6, (SELECT id FROM people WHERE id = 7), '2000-03-25'),  
 
-  (17, 1, (SELECT people_id FROM people WHERE people_id = 8), '2008-07-09'),
-  (18, 3, (SELECT people_id FROM people WHERE people_id = 8), '2022-03-04'), 
-  (19, 5, (SELECT people_id FROM people WHERE people_id = 8), '2009-06-13'),
-  (20, 6, (SELECT people_id FROM people WHERE people_id = 8), '2020-04-25'),   
+  (17, 1, (SELECT id FROM people WHERE id = 8), '2008-07-09'),
+  (18, 3, (SELECT id FROM people WHERE id = 8), '2022-03-04'), 
+  (19, 5, (SELECT id FROM people WHERE id = 8), '2009-06-13'),
+  (20, 6, (SELECT id FROM people WHERE id = 8), '2020-04-25'),   
 
-  (21, 2, (SELECT people_id FROM people WHERE people_id = 9), '2014-05-03'), 
-  (22, 5, (SELECT people_id FROM people WHERE people_id = 9), '2011-02-04'),
-  (23, 6, (SELECT people_id FROM people WHERE people_id = 9), '2010-03-16'),
+  (21, 2, (SELECT id FROM people WHERE id = 9), '2014-05-03'), 
+  (22, 5, (SELECT id FROM people WHERE id = 9), '2011-02-04'),
+  (23, 6, (SELECT id FROM people WHERE id = 9), '2010-03-16'),
 
-  (24, 1, (SELECT people_id FROM people WHERE people_id = 10), '2021-09-23'), 
-  (25, 4, (SELECT people_id FROM people WHERE people_id = 10), '2002-04-11'),
-  (26, 5, (SELECT people_id FROM people WHERE people_id = 10), '2007-10-22');
+  (24, 1, (SELECT id FROM people WHERE id = 10), '2021-09-23'), 
+  (25, 4, (SELECT id FROM people WHERE id = 10), '2002-04-11'),
+  (26, 5, (SELECT id FROM people WHERE id = 10), '2007-10-22');
 # Section 8
 # Create roles( id, name, sort_priority )
 # sort_priority is an integer and is used to provide an order for sorting roles
